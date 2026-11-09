@@ -1,0 +1,1131 @@
+/* =========================================================
+   Top Time – style.css
+   Mobile-first: basisstijlen zijn voor kleine schermen,
+   media queries voegen de grotere layouts toe.
+
+   Inhoud
+   1. Variabelen (kleuren, lettertypen, maten)
+   2. Basis
+   3. Hulpklassen (container, knoppen, links, foto-vakken)
+   4. Header en navigatie
+   5. Hero
+   6. Secties algemeen
+   7. Diensten
+   8. Ons verhaal
+   9. Bezoek ons
+   10. Footer
+   11. Mobiele actiebalk (met 10b. Merken tussen Diensten en Verhaal)
+   ========================================================= */
+
+
+/* Lettertypen: eigen bestanden (variabele woff2, alleen latin), geen verbinding met Google. */
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url("../assets/fonts/cormorant-garamond.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Karla";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("../assets/fonts/karla.woff2") format("woff2");
+}
+
+/* ---------- 1. Variabelen ---------- */
+:root {
+  /* Kleuren */
+  --ink: #1E3550;            /* diep marineblauw (huiskleur): donkere secties */
+  --paper: #EEF2F6;          /* koel gebroken wit: lichte secties */
+  --silver: #C3C8CE;         /* accent op donker: lijnen, details, 1926 */
+  --silver-hover: #DADEE3;
+  --silver-deep: #4D5967;     /* zilvergrijs voor tekst/lijnen op licht (contrast AA) */
+  --silver-frame: #9BA5B1;   /* fotolijst op licht (decoratief) */
+  --mist: #E3E9EF;           /* iets diepere lichte tint (reviews) */
+  --text-on-dark: #EEF2F6;
+  --muted-on-dark: #A9B6C6;
+  --text-on-light: #14233A;
+  --muted-on-light: #455264;
+  --line-on-dark: rgba(195, 200, 206, 0.34);
+  --line-on-light: rgba(77, 89, 103, 0.3);
+
+  /* Eén neutrale, koele toon voor alle foto's (geen geel naast het blauw) */
+  --photo-filter: saturate(0.4) brightness(0.88);
+  /* Lichtere variant voor de foto's binnen in de winkel */
+  --photo-filter-light: saturate(0.7) brightness(0.97);
+
+  /* Fotolijst: dunne lijn, 18px (mobiel 10px) naar rechtsonder verschoven achter de foto,
+     plus een zachte, diepe schaduw in marineblauw. Eén keer gedefinieerd, gebruikt via .photo. */
+  --frame-offset: 18px;
+  --frame-line: var(--accent);
+  --photo-shadow: 0 30px 60px -20px rgba(10, 22, 40, 0.45);
+
+  /* Per sectie ingestelde waarden (standaard: donker) */
+  --accent: var(--silver);
+  --muted: var(--muted-on-dark);
+  --line: var(--line-on-dark);
+  --focus: var(--silver);
+
+  /* Lettertypen */
+  --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --sans: "Karla", "Segoe UI", system-ui, sans-serif;
+
+  /* Maten */
+  --gutter: clamp(1.25rem, 5vw, 3.5rem);
+  --max: 76rem;
+  --section-y: clamp(5rem, 11vw, 10rem);
+  --mobile-bar-h: 4.25rem;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+
+/* ---------- 2. Basis ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* ankerlinks niet onder de vaste header */
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text-on-dark);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  /* Ruimte voor de mobiele actiebalk, zodat die niets afdekt */
+  padding-bottom: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom));
+}
+
+img { display: block; max-width: 100%; }
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+h2 { font-size: clamp(2.35rem, 3.6vw + 1.2rem, 4.5rem); }
+
+p { margin: 0 0 1em; max-width: 65ch; }
+p:last-child { margin-bottom: 0; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem; top: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip-link:focus { top: 1rem; }
+
+/* Plekken die u nog moet invullen vallen zo op. Verwijder de <mark> zodra de tekst er staat. */
+
+.is-placeholder {
+  background: rgba(195, 200, 206, 0.28);
+  color: inherit;
+  padding: 0 0.2em;
+  outline: 1px dashed var(--accent);
+  outline-offset: 1px;
+}
+
+
+/* ---------- 3. Hulpklassen ---------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Knoppen */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font: 600 0.8125rem/1 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.btn svg { width: 1rem; height: 1rem; flex: none; }
+
+.btn--silver { background: var(--silver); color: var(--ink); }
+.btn--silver:hover { background: var(--silver-hover); }
+
+.btn--ink { background: var(--ink); color: var(--paper); }
+.btn--ink:hover { background: #2B4868; }
+
+.btn--ghost { border-color: rgba(238, 242, 246, 0.55); color: var(--text-on-dark); }
+.btn--ghost:hover { border-color: var(--silver); color: var(--silver); }
+
+.btn--small { min-height: 2.5rem; padding: 0.6rem 1.1rem; }
+
+/* Tekstlinks: dunne lijn eronder, die bij hover in goud volloopt */
+.link {
+  text-decoration: none;
+  padding-bottom: 2px;
+  background-image: linear-gradient(var(--accent), var(--accent)), linear-gradient(var(--line), var(--line));
+  background-size: 0% 1px, 100% 1px;
+  background-position: 0 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s var(--ease), color 0.25s var(--ease);
+}
+.link:hover,
+.link:focus-visible { background-size: 100% 1px, 100% 1px; }
+
+/* Foto-vak: toont een neutraal vlak met label totdat de foto bestaat.
+   De verhouding komt uit style="--ratio: 4 / 5" in de HTML. */
+.slot {
+  --slot-bg: #2A4565;
+  --slot-fg: #A9B6C6;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--ratio, 4 / 3);
+  background: var(--slot-bg);
+}
+.section--light .slot { --slot-bg: #D9E0E8; --slot-fg: #455264; }
+
+.slot__label {
+  position: absolute;
+  inset: 0.75rem;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  text-align: center;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--slot-fg);
+}
+.slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--photo-filter);
+}
+
+
+/* Foto met lijst en schaduw: voor alle inhoudsfoto's (niet de hero).
+   Zet .photo op de <figure> (of een wrapper) die één .slot bevat. */
+.photo { position: relative; isolation: isolate; }
+.photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid var(--frame-line);
+  transform: translate(var(--frame-offset), var(--frame-offset));
+  pointer-events: none;
+}
+.photo .slot { box-shadow: var(--photo-shadow); }
+@media (max-width: 47.99em) {
+  :root { --frame-offset: 10px; }
+}
+
+
+/* ---------- 4. Header en navigatie ---------- */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  color: var(--text-on-dark);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 5rem;
+  transition: height 0.35s var(--ease);
+}
+
+/* Compact zodra er gescrold is (klasse wordt gezet in main.js) */
+.site-header.is-compact {
+  background: rgba(30, 53, 80, 0.97);
+  border-bottom-color: var(--line-on-dark);
+}
+.site-header.is-open {
+  background: var(--ink);
+  border-bottom-color: var(--line-on-dark);
+}
+.site-header.is-compact .site-header__inner { height: 4rem; }
+
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  font-family: var(--serif);
+  font-size: 2.375rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+.wordmark__sub {
+  margin-top: 0.35rem;
+  font-family: var(--sans);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--silver);
+  transition: opacity 0.3s var(--ease);
+}
+.site-header.is-compact .wordmark__sub { display: none; }
+
+/* Op kleine schermen staat 'Bellen' al in de actiebalk onderaan */
+.header-call { display: none; }
+
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0 0.25rem;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: 600 0.75rem/1 var(--sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.nav-toggle__bars,
+.nav-toggle__bars::before {
+  display: block;
+  width: 1.4rem;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease);
+}
+.nav-toggle__bars { position: relative; transform: translateY(-3px); }
+.nav-toggle__bars::before { content: ""; position: absolute; top: 6px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars { transform: translateY(0) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::before { transform: translateY(-6px) rotate(-90deg); }
+
+.nav ul { list-style: none; margin: 0; padding: 0; }
+
+/* Mobiel menu */
+@media (max-width: 59.99em) {
+  .nav { display: none; }
+  .site-header.is-open .nav {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 0.5rem var(--gutter) 2rem;
+    background: var(--ink);
+    border-bottom: 1px solid var(--line-on-dark);
+  }
+  .nav a {
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(238, 242, 246, 0.12);
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    text-decoration: none;
+  }
+  .nav a:hover { color: var(--silver); }
+}
+
+@media (min-width: 48em) {
+  .header-call { display: inline-flex; }
+}
+
+@media (min-width: 60em) {
+  .site-header__inner { gap: 2.5rem; height: 6rem; }
+  .wordmark { font-size: 3rem; }
+  .nav-toggle { display: none; }
+  .nav ul { display: flex; gap: 2.25rem; }
+  .nav a {
+    padding: 0.5rem 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: linear-gradient(var(--silver), var(--silver)) no-repeat 0 100% / 0% 1px;
+    transition: background-size 0.4s var(--ease);
+  }
+  .nav a:hover,
+  .nav a:focus-visible { background-size: 100% 1px; }
+}
+
+
+/* ---------- 5. Hero ---------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100vh;
+  /* op mobiel: min de actiebalk, zodat de openingsstatus zichtbaar blijft */
+  min-height: max(36rem, calc(100svh - var(--mobile-bar-h) - env(safe-area-inset-bottom)));
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--text-on-dark);
+}
+
+.hero__media { position: absolute; inset: 0; z-index: -1; }
+
+.hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--photo-filter);
+}
+
+/* Donkere laag over de foto: van links donker, zodat kop en knoppen goed leesbaar zijn */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right,
+      rgba(18, 34, 54, 0.9) 0%,
+      rgba(18, 34, 54, 0.72) 38%,
+      rgba(18, 34, 54, 0.25) 72%,
+      rgba(18, 34, 54, 0.05) 100%),
+    linear-gradient(to bottom,
+      rgba(18, 34, 54, 0.45) 0%,
+      rgba(18, 34, 54, 0) 22%,
+      rgba(18, 34, 54, 0) 62%,
+      rgba(18, 34, 54, 0.8) 100%);
+}
+/* Op smalle schermen loopt de tekst over de hele breedte */
+@media (max-width: 47.99em) {
+  .hero__overlay {
+    background: linear-gradient(to bottom,
+      rgba(18, 34, 54, 0.55) 0%,
+      rgba(18, 34, 54, 0.6) 35%,
+      rgba(18, 34, 54, 0.82) 70%,
+      rgba(18, 34, 54, 0.94) 100%);
+  }
+}
+
+.hero__content { padding-top: 8rem; padding-bottom: 3rem; }
+
+/* Kop, tekst en knoppen verschijnen met pure CSS, direct bij het laden en onafhankelijk van GSAP:
+   de hero is dus nooit donker of leeg als een script traag is. Klaar binnen 0,9 seconde. */
+.hero__content > * { animation: hero-in 0.6s var(--ease) both; }
+.hero__lead { animation-delay: 0.1s; }
+.hero__actions { animation-delay: 0.2s; }
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+.hero h1 {
+  max-width: 12ch;
+  font-size: clamp(2.9rem, 6vw + 1.25rem, 7.25rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.hero__lead {
+  max-width: 34rem;
+  margin-top: 1.75rem;
+  font-size: clamp(1.0625rem, 0.4vw + 1rem, 1.25rem);
+  color: #E6ECF2;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+.hero__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.25rem 1.5rem;
+  border-top: 1px solid var(--line-on-dark);
+}
+
+.open-status {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: 0.9375rem;
+}
+.open-status__dot {
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--muted-on-dark);
+}
+.open-status.is-open .open-status__dot { background: var(--silver); border-color: var(--silver); }
+
+@media (min-width: 60em) {
+  .hero { min-height: max(38rem, 100svh); }
+  .hero__content { padding-bottom: 4.5rem; }
+}
+
+
+/* ---------- 6. Secties algemeen ---------- */
+.section { padding-block: var(--section-y); }
+
+.section--light {
+  background: var(--paper);
+  color: var(--text-on-light);
+  --accent: var(--silver-deep);
+  --muted: var(--muted-on-light);
+  --line: var(--line-on-light);
+  --focus: var(--silver-deep);
+  --frame-line: var(--silver-frame);
+}
+.section--dark {
+  background: var(--ink);
+  color: var(--text-on-dark);
+}
+
+.section-head {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: clamp(3rem, 6vw, 5.5rem);
+}
+.section-head h2 { max-width: 15ch; }
+
+
+/* ---------- 7. Diensten ---------- */
+/* Reparatiefoto (in de dienst Horlogereparatie): begint ingezoomd op het open horloge en zoomt uit
+   tijdens het scrollen (main.js). Zonder JavaScript of bij 'minder beweging' staat het volledige beeld er. */
+.service__photo--repair img {
+  object-position: 50% 45%;
+  transform-origin: 47% 46%;
+}
+
+.services {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.service {
+  display: grid;
+  gap: 0.5rem;
+  padding-block: 2.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.service__title { font-size: clamp(1.7rem, 1.2vw + 1.25rem, 2.5rem); }
+.service__text { color: var(--muted); }
+.service__text p { margin: 0; }
+
+/* Productfoto's naast een dienst. Op mobiel onder elkaar, volle breedte. */
+.service__photo { margin: 2rem 0 0; }
+.service__photo .slot { --ratio: 3 / 2; }
+.service__photo img { filter: var(--photo-filter-light); }
+/* Bandjes: brede strook over de volle inhoudsbreedte (4:1), mobiel 2:1 rond het midden.
+   De lijst begint op de bovenrand van de foto en steekt alleen rechts en onder uit,
+   en eindigt precies waar de scheidingslijn eindigt (de foto is daarom een lijstbreedte smaller). */
+.service__photo--straps,
+.service__photo--repair { grid-column: 1 / -1; width: calc(100% - var(--frame-offset)); }
+.service__photo--straps .slot,
+.service__photo--repair .slot { --ratio: 2 / 1; box-shadow: 0 14px 26px -18px rgba(10, 22, 40, 0.3); }
+.service__photo--straps::before,
+.service__photo--repair::before { inset: 0 calc(var(--frame-offset) * -1) calc(var(--frame-offset) * -1) 0; transform: none; }
+/* Horloge: rond het horloge uitgesneden, het merklogo op het deksel valt weg */
+.service__photo--watch img { object-position: 50% 82%; }
+/* Kettingen: de linker twee derde, zodat het label aan de rechter paspop wegvalt */
+.service__photo--chains img { object-position: 0% 50%; }
+
+/* Gouden sieraden: twee grote foto's, mobiel onder elkaar */
+.service__photos { margin-top: 0.5rem; }
+.service__photos .service__photo--chains { margin-top: 2.25rem; }
+
+@media (min-width: 64em) {
+  .service__photo--straps .slot { --ratio: 4 / 1; }
+  .service__photo--repair .slot { --ratio: 3 / 1; }
+  .service {
+    grid-template-columns: 5fr 6fr;
+    align-items: baseline;
+    gap: 0 3rem;
+    padding-block: 3rem;
+  }
+
+  /* Junghans groot (2/3 van de breedte), kettingen op 60% daarvan, over de
+     rechteronderhoek: als twee op elkaar gelegde afdrukken. */
+  .service__photos {
+    grid-column: 1 / -1;
+    position: relative;
+    margin-top: 2rem;
+    padding-bottom: 14.7%;
+  }
+  .service__photos .service__photo { margin: 0; }
+  .service__photos .service__photo--watch { width: 66.667%; }
+  .service__photos .service__photo--chains {
+    position: absolute;
+    right: 5.333%;
+    bottom: 0;
+    width: 40%;
+    margin: 0;
+  }
+}
+
+
+/* ---------- 7b. Merken ---------- */
+/* Donkere band, net als "Ons verhaal". Elk merk staat in een eigen vak van een vitrine: vakken gescheiden door
+   1px zilveren lijntjes (de ruitjes van het glas), met een zachte spot van boven. Geen kaarten, geen schaduw.
+   Ontbreekt een logobestand, dan staat de merknaam als tekst in hetzelfde vak. */
+.brands + .story { border-top: 1px solid var(--line-on-dark); }
+.brands .section-head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.brands__intro { color: var(--muted); font-size: 1.125rem; }
+
+.brands__group + .brands__group { margin-top: clamp(3rem, 6vw, 5rem); }
+.brands__title {
+  margin-bottom: 1.25rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* De lijntjes zijn de 1px-tussenruimte (gap) waar een lijnkleurige laag (::before) achter de vakken doorheen schijnt */
+.brands__list {
+  position: relative;
+  isolation: isolate;
+  list-style: none;
+  margin: 0;
+  padding: 1px;
+  display: grid;
+  gap: 1px;
+  --logo-k: 0.72; /* logo's op mobiel kleiner */
+}
+.brands__list::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--line-on-dark);
+  transform: scaleX(var(--line-scale, 1));
+  transform-origin: 0 50%;
+}
+.brands__list--watches { grid-template-columns: repeat(2, 1fr); }
+.brands__list--jewels { grid-template-columns: 1fr; }
+/* mobiel: het vijfde (alleenstaande) vak loopt over de volle breedte */
+.brands__list--watches .brand:last-child { grid-column: 1 / -1; }
+
+@media (min-width: 48em) {
+  .brands__list { --logo-k: 0.9; }
+  /* tablet: 3 + 2 vakken op een rij van 6, zodat er geen leeg vak overblijft */
+  .brands__list--watches { grid-template-columns: repeat(6, 1fr); }
+  .brands__list--watches .brand,
+  .brands__list--watches .brand:last-child { grid-column: span 2; }
+  .brands__list--watches .brand:nth-child(n+4),
+  .brands__list--watches .brand:last-child { grid-column: span 3; }
+  .brands__list--jewels { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 64em) {
+  .brands__list { --logo-k: 1; }
+  .brands__list--watches { grid-template-columns: repeat(5, 1fr); }
+  .brands__list--watches .brand,
+  .brands__list--watches .brand:nth-child(n+4) { grid-column: auto; }
+  .brands__list--jewels { grid-template-columns: repeat(4, 1fr); }
+}
+
+.brand {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 9.5rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  background: var(--ink);
+}
+@media (min-width: 64em) { .brand { min-height: 13rem; padding: 2.5rem 1.5rem; } }
+
+/* Spot van boven: iets lichter blauw in het midden, uitlopend naar de kleur van de band */
+.brand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 75% 85% at 50% 0%, rgba(195, 200, 206, 0.22), rgba(195, 200, 206, 0) 74%);
+  opacity: calc(var(--spot, 1) * 0.8);
+  transition: opacity 0.6s var(--ease);
+}
+
+.brand__mark { display: grid; place-items: center; width: 100%; }
+.brand__mark > * { grid-area: 1 / 1; }
+.brand__name {
+  font-family: var(--serif);
+  font-size: clamp(2.1rem, 1.2vw + 1.7rem, 2.6rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--silver);
+}
+.brand__logo,
+.brand__sheen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.brand.has-logo .brand__name { display: none; }
+
+/* Logo: optisch even groot via --w per logo (in de HTML, uit de verhouding berekend), op mobiel kleiner (--logo-k) */
+.brand.has-logo .brand__logo,
+.brand.has-logo .brand__sheen {
+  position: static;
+  width: min(calc(var(--w, 8rem) * var(--logo-k, 1)), 100%);
+  height: auto;
+  max-height: 6rem;
+  object-fit: contain;
+}
+.brand.has-logo .brand__logo {
+  opacity: 1;
+  filter: brightness(0) invert(0.76) sepia(0.14) hue-rotate(176deg) saturate(1); /* één kleur: koel zilver (ca. #C3C8CE) */
+}
+/* Tweede, lichtere kopie van het logo; een schuin lichtvlak maakt hem één keer zichtbaar (alleen hover) */
+.brand.has-logo .brand__sheen {
+  opacity: 1;
+  filter: brightness(0) invert(1);
+  -webkit-mask-image: linear-gradient(115deg, transparent 38%, #000 50%, transparent 62%);
+  mask-image: linear-gradient(115deg, transparent 38%, #000 50%, transparent 62%);
+  -webkit-mask-size: 300% 100%;
+  mask-size: 300% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0; /* lichtvlak links buiten het logo */
+}
+.brand__note { position: relative; margin: 0; max-width: 24ch; font-size: 0.9375rem; color: var(--muted); }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .brand:hover::before,
+  .brand:focus-within::before { opacity: calc(var(--spot, 1) * 1); }
+  .brand.has-logo:hover .brand__sheen,
+  .brand.has-logo:focus-within .brand__sheen {
+    -webkit-mask-position: 0% 0;
+    mask-position: 0% 0;
+    transition: mask-position 0.8s var(--ease), -webkit-mask-position 0.8s var(--ease);
+  }
+}
+
+
+/* Intro (main.js): de lampen van de vitrine gaan aan. De klasse .brands__group--anim komt er alleen als JavaScript en GSAP
+   werken en er geen 'minder beweging' is ingesteld; main.js haalt hem na afloop weer weg. Anders is alles gewoon zichtbaar.
+   Per groep (.brands__group), want elke groep speelt af als hij zelf in beeld komt. Het vak knipt de logo's af (overflow). */
+.brand { overflow: hidden; }
+.brands__group--anim .brands__list { --line-scale: 0; }
+.brands__group--anim .brand { --spot: 0; }
+.brands__group--anim .brand::before { transition: none; }
+.brands__group--anim .brand__mark,
+.brands__group--anim .brand__note { opacity: 0; }
+
+
+/* ---------- 8. Ons verhaal ---------- */
+.story {
+  overflow: hidden;
+  /* Donkere sectie: alleen het zilveren lijstje */
+  --frame-offset: 14px;
+  --photo-shadow: 0 34px 70px -14px rgba(8, 18, 34, 0.5), 0 10px 28px -8px rgba(8, 18, 34, 0.3);
+}
+@media (max-width: 47.99em) {
+  .story { --frame-offset: 8px; }
+}
+
+.story__grid { display: grid; gap: 2.5rem; }
+
+/* De grote 1926 als typografisch element (decoratief, verborgen voor schermlezers) */
+.story__year {
+  margin: 0;
+  max-width: none;
+  font-family: var(--serif);
+  font-size: clamp(7rem, 30vw, 21rem);
+  font-weight: 300;
+  line-height: 0.78;
+  letter-spacing: -0.03em;
+  color: var(--silver);
+  font-variant-numeric: lining-nums;
+}
+
+.story__text p { color: #D5DDE7; }
+.story__note { margin: 0 0 1.25rem; max-width: none; font-family: var(--serif); font-size: clamp(1.35rem, 1vw + 1.1rem, 1.75rem); color: var(--silver); }
+.story__text h2 { max-width: 14ch; margin-bottom: 2rem; }
+
+.story__photo { margin: 0; }
+.story__photo .story__img { object-position: 0% 50%; filter: var(--photo-filter-light); }
+.story__photo figcaption {
+  margin-top: calc(0.9rem + var(--frame-offset));
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+@media (max-width: 63.99em) {
+  /* Op mobiel: 1926, tekst, dan de foto */
+  .story__year { order: 1; }
+  .story__text { order: 2; }
+  .story__photo { order: 3; max-width: 30rem; }
+}
+
+@media (min-width: 64em) {
+  .story__grid {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0 2rem;
+  }
+  .story__year {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-left: 8%;
+    margin-bottom: -0.12em; /* laat de foto net over de cijfers vallen */
+  }
+  .story__photo {
+    grid-column: 1 / 6;
+    grid-row: 2;
+    position: relative;
+    z-index: 1;
+  }
+  .story__text {
+    grid-column: 7 / 13;
+    grid-row: 2;
+    align-self: center;
+    padding-top: 4rem;
+  }
+}
+
+
+/* ---------- 8b. Reviews ---------- */
+/* Strook die vanzelf van rechts naar links schuift (pure CSS). Twee identieke rijen naast elkaar; de animatie schuift
+   precies een rij op (-50%), dus zonder sprong. Elke kaart heeft een vaste breedte en een marge rechts, zodat beide rijen
+   even breed zijn. Tempo ca. 30px per seconde: --dur = rijbreedte / 30. */
+.section--mist { background: var(--mist); }
+.reviews { overflow: hidden; --card-w: 260px; --card-gap: 1rem; --dur: 140s; }
+@media (min-width: 48em) { .reviews { --card-w: 320px; --card-gap: 1.25rem; --dur: 172s; } }
+
+.reviews__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem 2rem; }
+.reviews__score { margin: 1.25rem 0 clamp(2rem, 4vw, 3rem); color: var(--muted); }
+
+.reviews__pause {
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  background: none;
+  border: 1px solid var(--silver-deep);
+  border-radius: 2px;
+  color: var(--text-on-light);
+  font: 600 0.75rem/1 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.reviews__pause:hover { background: var(--silver-deep); color: var(--paper); }
+.reviews__pause[hidden] { display: none; }
+
+.reviews__marquee {
+  overflow: hidden;
+  /* zachte fade links en rechts */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+.reviews__track {
+  display: flex;
+  width: max-content;
+  animation: reviews-scroll var(--dur) linear infinite;
+}
+.reviews__row { display: flex; align-items: stretch; margin: 0; padding: 0; list-style: none; }
+@keyframes reviews-scroll { to { transform: translateX(-50%); } }
+
+/* Stil bij hover, aanraken, toetsenbordfocus en met de pauzeknop */
+@media (hover: hover) { .reviews__marquee:hover .reviews__track { animation-play-state: paused; } }
+.reviews__marquee:active .reviews__track,
+.reviews__marquee:focus-within .reviews__track,
+.reviews.is-paused .reviews__track { animation-play-state: paused; }
+
+.review {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: var(--card-w);
+  margin-right: var(--card-gap);
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+}
+.review__quote { margin: 0; }
+.review__quote p {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.1875rem;
+  line-height: 1.4;
+  color: var(--text-on-light);
+}
+.review__by { margin: 0; font-size: 0.9375rem; font-weight: 600; color: var(--text-on-light); }
+.review__by span { display: block; margin-top: 0.15rem; font-weight: 400; color: var(--muted); }
+
+.reviews__more { margin: clamp(2rem, 4vw, 3rem) 0 0; }
+.reviews__more .link { display: inline-block; padding-block: 0.6rem; color: var(--text-on-light); }
+
+/* Minder beweging: niets schuift; een gewone rij die je zelf horizontaal scrolt, zonder de herhaalde kopie */
+@media (prefers-reduced-motion: reduce) {
+  .reviews__marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .reviews__track { animation: none; padding-inline: var(--gutter); }
+  .reviews__row[aria-hidden="true"] { display: none; }
+  .reviews__pause { display: none; }
+}
+
+
+/* ---------- 9. Bezoek ons ---------- */
+.visit__grid { display: grid; gap: 3.5rem; }
+
+.visit__info h2 { margin-bottom: 1.5rem; }
+.visit__intro { color: var(--muted); font-size: 1.125rem; }
+
+.contact {
+  display: grid;
+  gap: 1.25rem;
+  margin: 2.5rem 0 3.5rem;
+}
+.contact div {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.contact dt {
+  padding-top: 0.2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.contact dd { margin: 0; overflow-wrap: anywhere; }
+
+
+.visit__subhead { font-size: 2rem; margin-bottom: 1rem; }
+
+.hours {
+  width: 100%;
+  max-width: 30rem;
+  border-collapse: collapse;
+}
+.hours th,
+.hours td {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-weight: 400;
+}
+.hours td { text-align: right; font-variant-numeric: tabular-nums; }
+.hours .is-today th,
+.hours .is-today td { font-weight: 600; color: var(--text-on-light); }
+.hours .is-today th::after {
+  content: "vandaag";
+  margin-left: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.hours .is-today { box-shadow: inset 2px 0 0 var(--silver-deep); }
+.hours .is-today th { padding-left: 0.9rem; }
+
+.map {
+  position: relative;
+  height: 19rem;
+  background: #D9E0E8;
+  overflow: hidden;
+}
+.map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(0.35);
+}
+.map__placeholder {
+  position: absolute;
+  inset: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--silver-frame);
+  text-align: center;
+}
+.map__address {
+  margin: 0;
+  max-width: none;
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 1vw + 1.2rem, 2rem);
+  font-weight: 500;
+  font-variant-numeric: lining-nums;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.map__consent { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.map__note {
+  margin: 0;
+  max-width: 28ch;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--silver-deep);
+}
+.visit__maplink { margin-top: 1.25rem; }
+
+/* Vitrines: eigen uitsnede (4:3) van IMG_3660 zonder de gebogen glazen deur links en het plafond.
+   Zonder de Nomination-poster rechts en de stoel onderin. */
+.visit__photo { margin: 0 0 2.25rem; }
+.visit__photo .slot { --ratio: 4 / 3; }
+.visit__photo .slot img { filter: var(--photo-filter-light); }
+@media (min-width: 48em) {
+  .visit__map .map { aspect-ratio: 16 / 9; height: auto; }
+}
+
+@media (min-width: 64em) {
+  .visit__grid { grid-template-columns: repeat(12, 1fr); gap: 0 2rem; }
+  .visit__info { grid-column: 1 / 6; }
+  .visit__map { grid-column: 7 / 13; padding-top: 4.5rem; }
+}
+
+
+/* ---------- Tekstpagina (privacy.html) ---------- */
+.page { padding-top: calc(5rem + clamp(2rem, 5vw, 4rem)); }
+.prose { max-width: 44rem; margin-inline: auto; }
+.prose h1 { font-size: clamp(2.35rem, 3.6vw + 1.2rem, 4rem); }
+.prose h2 { margin: 2.5rem 0 0.75rem; font-size: clamp(1.5rem, 1vw + 1.25rem, 2rem); }
+.prose__date { margin: 0.75rem 0 2rem; color: var(--muted); font-size: 0.875rem; }
+.prose ul { margin: 0 0 1em; padding-left: 1.25rem; }
+.prose li { margin-bottom: 0.6em; max-width: 65ch; }
+
+
+/* ---------- 10. Footer ---------- */
+.site-footer {
+  padding-block: 3rem;
+  border-top: 1px solid var(--line-on-dark);
+  font-size: 0.875rem;
+  color: var(--muted-on-dark);
+}
+.site-footer__inner { display: grid; gap: 0.75rem; }
+.site-footer p { margin: 0; }
+.site-footer__name {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+}
+.site-footer__name span {
+  margin-left: 0.75rem;
+  font-family: var(--sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+@media (min-width: 60em) {
+  .site-footer__inner {
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 3rem;
+  }
+}
+
+
+/* ---------- 11. Mobiele actiebalk ---------- */
+.mobile-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.625rem;
+  padding: 0.625rem var(--gutter) calc(0.625rem + env(safe-area-inset-bottom));
+  background: var(--ink);
+  border-top: 1px solid var(--line-on-dark);
+}
+
+/* Staat de balk automatisch aan (main.js zet .mobile-bar--auto), dan schuift hij weg zolang de
+   knoppen in de hero in beeld zijn. Zonder JavaScript blijft hij gewoon zichtbaar. */
+.mobile-bar--auto {
+  transition: transform 0.25s var(--ease), visibility 0s linear 0s;
+}
+.mobile-bar--auto.is-hidden {
+  transform: translateY(100%);
+  visibility: hidden; /* ook niet met Tab bereikbaar zolang hij weg is */
+  transition: transform 0.25s var(--ease), visibility 0s linear 0.25s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-bar--auto,
+  .mobile-bar--auto.is-hidden { transform: none; transition: none !important; }
+}
+
+@media (min-width: 48em) {
+  .mobile-bar { display: none; }
+  body { padding-bottom: 0; }
+}
+
+
+/* ---------- Minder beweging ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

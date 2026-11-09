@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- ===== SEO ===== -->
+  <title>Top Time | Juwelier en horlogemaker in Deventer, sinds 1926</title>
+  <meta name="description" content="Top Time is juwelier en horlogemaker in Deventer, op dit adres sinds 1926. Gouden sieraden en horloges, horlogereparatie en een nieuwe horlogebatterij, meestal binnen enkele minuten.">
+  <meta name="theme-color" content="#1E3550">
+  <link rel="canonical" href="https://toptimejuwelier.nl/">
+
+  <!-- ===== Open Graph (voorbeeld bij het delen van een link) =====
+       Deze tags worden gelezen zonder JavaScript, daarom staan ze hier en niet in main.js.
+       og:image moet een volledige URL zijn: https://toptimejuwelier.nl/assets/images/og-image.jpg (1200 x 630). -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:site_name" content="Top Time">
+  <meta property="og:title" content="Top Time | Juwelier en horlogemaker in Deventer, sinds 1926">
+  <meta property="og:description" content="Gouden sieraden en horloges, horlogereparatie en een nieuwe horlogebatterij, meestal binnen enkele minuten. Loop gerust binnen.">
+  <meta property="og:url" content="https://toptimejuwelier.nl/">
+  <meta property="og:image" content="https://toptimejuwelier.nl/assets/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- ===== Lettertypen (eigen bestanden, @font-face staat in css/style.css) ===== -->
+  <link rel="preload" href="assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/karla.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Gestructureerde gegevens (JewelryStore), vast in de HTML.
+       LET OP: de openingstijden hieronder en in de tabel in "Bezoek ons" moeten gelijk zijn
+       aan TOPTIME.hours in js/main.js. Pas ze altijd samen aan. -->
+  <script type="application/ld+json" id="structured-data">
+  {
+    "@context": "https://schema.org",
+    "@type": "JewelryStore",
+    "name": "Top Time",
+    "description": "Juwelier en horlogemaker in Deventer, op dit adres sinds 1926: gouden sieraden en horloges, horlogereparatie en horlogebatterij vervangen.",
+    "foundingDate": "1989",
+    "telephone": "+31570612117",
+    "email": "Info@toptimejuwelier.nl",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Spijkerboorsteeg 10",
+      "postalCode": "7411 JG",
+      "addressLocality": "Deventer",
+      "addressCountry": "NL"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "https://schema.org/Tuesday",
+        "opens": "10:00",
+        "closes": "17:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "https://schema.org/Wednesday",
+        "opens": "10:00",
+        "closes": "17:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "https://schema.org/Thursday",
+        "opens": "10:00",
+        "closes": "17:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "https://schema.org/Friday",
+        "opens": "10:00",
+        "closes": "17:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "https://schema.org/Saturday",
+        "opens": "10:00",
+        "closes": "17:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.google.com/maps/place/?q=place_id:ChIJvbNIimfqx0cRuLQy41AwDXs"
+    ],
+    "url": "https://toptimejuwelier.nl/",
+    "image": "https://toptimejuwelier.nl/assets/images/og-image.jpg"
+  }
+  </script>
+
+  <!-- GSAP alleen voor subtiele animaties. Zonder GSAP werkt de site gewoon. -->
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Direct naar de inhoud</a>
+
+  <!-- =========================================================
+       1. HEADER / NAVIGATIE
+       ========================================================= -->
+  <header class="site-header" data-header>
+    <div class="container site-header__inner">
+      <a class="wordmark" href="#top">
+        Top Time
+        <span class="wordmark__sub">Deventer &middot; Spijkerboorsteeg 10</span>
+      </a>
+
+      <nav class="nav" id="site-nav" aria-label="Hoofdmenu">
+        <ul>
+          <li><a href="#diensten">Diensten</a></li>
+          <li><a href="#merken">Merken</a></li>
+          <li><a href="#verhaal">Ons verhaal</a></li>
+          <li><a href="#bezoek">Bezoek ons</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn--silver btn--small header-call" href="tel:+31570612117" data-tel>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z" fill="currentColor"/></svg>
+        Bel ons
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+        <span class="nav-toggle__bars" aria-hidden="true"></span>
+        <span class="nav-toggle__label">Menu</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- =========================================================
+         2. HERO
+         Foto: assets/images/hero-poster.jpg
+         ========================================================= -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__media">
+        <img class="hero__img" src="assets/images/hero-poster.jpg" alt=""
+             width="1920" height="1080" fetchpriority="high" decoding="async">
+        <div class="hero__overlay"></div>
+      </div>
+
+      <div class="container hero__content">
+        <h1 id="hero-title">Juwelier en horlogemaker in Deventer, sinds&nbsp;1926</h1>
+        <p class="hero__lead">Een nieuwe horlogebatterij zit er meestal binnen enkele minuten in.</p>
+        <div class="hero__actions">
+          <a class="btn btn--silver" href="tel:+31570612117" data-tel>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z" fill="currentColor"/></svg>
+            Bel ons
+          </a>
+          <a class="btn btn--ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Top%20Time%2C%20Spijkerboorsteeg%2010%2C%207411%20JG%20Deventer" data-route target="_blank" rel="noopener">Route plannen</a>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="hero__bar">
+          <!-- Openingsstatus: wordt berekend in main.js uit de openingstijden. -->
+          <p class="open-status" data-open-status role="status">
+            <span class="open-status__dot" aria-hidden="true"></span>
+            <span data-open-status-text>Di t/m vr 10:00 – 17:30 &middot; za 10:00 – 17:00</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         3. DIENSTEN
+         ========================================================= -->
+    <section class="section section--light" id="diensten" aria-labelledby="diensten-title">
+      <div class="container">
+        <header class="section-head">
+          <div>
+            <h2 id="diensten-title" data-reveal>Sieraden, horloges en reparaties in&nbsp;Deventer</h2>
+          </div>
+        </header>
+
+        <ol class="services">
+          <li class="service" data-reveal>
+            <h3 class="service__title">Horlogebatterij vervangen</h3>
+            <div class="service__text">
+              <p>Meestal binnen enkele minuten.</p>
+            </div>
+          </li>
+
+          <li class="service" data-reveal>
+            <h3 class="service__title">Waterdichtheid testen</h3>
+            <div class="service__text">
+              <p>Meestal binnen enkele minuten.</p>
+            </div>
+          </li>
+
+          <li class="service" data-reveal>
+            <h3 class="service__title">Horlogereparatie</h3>
+            <div class="service__text">
+              <p>Loopt uw horloge niet meer goed, breng het dan gerust langs.</p>
+            </div>
+            <figure class="service__photo service__photo--repair photo">
+              <!-- Het ene bewegende moment van de site: de foto zoomt langzaam uit terwijl u scrolt (main.js). -->
+              <div class="slot">
+                <span class="slot__label">FOTO: pincet in een open horloge</span>
+                <img src="assets/images/horloge-uurwerk.jpg" data-repair-zoom
+                     alt="Met een pincet wordt een open horloge gerepareerd op de werkbank"
+                     width="1200" height="1200" loading="lazy" decoding="async" onerror="this.remove()">
+              </div>
+            </figure>
+          </li>
+
+          <li class="service" data-reveal>
+            <h3 class="service__title">Horlogebandje vervangen</h3>
+            <div class="service__text">
+              <p>Leer, staal of kunststof, vaak direct omgezet.</p>
+            </div>
+            <figure class="service__photo service__photo--straps photo">
+              <div class="slot">
+                <span class="slot__label">FOTO: horlogebandjes</span>
+                <img src="assets/images/bandjes.webp"
+                     alt="Leren horlogebandjes in verschillende kleuren"
+                     width="1440" height="360" loading="lazy" decoding="async" onerror="this.remove()">
+              </div>
+            </figure>
+          </li>
+
+          <li class="service" data-reveal>
+            <h3 class="service__title">Herenarmbanden</h3>
+            <div class="service__text">
+              <p>Te koop in de winkel.</p>
+            </div>
+          </li>
+
+          <li class="service" data-reveal>
+            <h3 class="service__title">Gouden sieraden en horloges</h3>
+            <div class="service__text">
+              <p>Wat er in de vitrine ligt, wisselt: kom gerust kijken.</p>
+              <p>Al ons goud is gekeurd.</p>
+              <p>Ook verguld zilver: een kern van zilver met een laag goud.</p>
+            </div>
+            <div class="service__photos">
+              <figure class="service__photo service__photo--watch photo">
+                <div class="slot">
+                  <span class="slot__label">FOTO: horloge in geschenkdoos</span>
+                  <img src="assets/images/horloges-vitrine.jpg"
+                       alt="Horloge met leren band in een geopende geschenkdoos"
+                       width="1200" height="1500" loading="lazy" decoding="async" onerror="this.remove()">
+                </div>
+              </figure>
+              <figure class="service__photo service__photo--chains photo">
+                <div class="slot">
+                  <span class="slot__label">FOTO: gouden kettingen</span>
+                  <img src="assets/images/gouden-kettingen.jpg"
+                       alt="Gouden kettingen op witte paspoppen in de vitrine"
+                       width="1932" height="869" loading="lazy" decoding="async" onerror="this.remove()">
+                </div>
+              </figure>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3b. ONZE MERKEN
+         Logo's: assets/images/merken/<naam>.svg (zie LEESMIJ.txt daar). Zolang een bestand
+         ontbreekt, staat de merknaam als tekst. Logo's moeten van het merk of de eigenaar komen.
+         ========================================================= -->
+    <section class="section section--dark brands" id="merken" aria-labelledby="merken-title">
+      <div class="container">
+        <header class="section-head">
+          <h2 id="merken-title" data-reveal>Onze merken</h2>
+          <p class="brands__intro" data-reveal>Deze merken vindt u bij ons in de winkel.</p>
+        </header>
+
+        <div class="brands__grid">
+          <div class="brands__group" data-reveal>
+            <h3 class="brands__title">Horloges</h3>
+            <ul class="brands__list brands__list--watches">
+              <li class="brand">
+                <span class="brand__mark">
+                  <img class="brand__logo" src="assets/images/merken/seiko.svg" alt="Seiko" style="--w: 8.6rem" decoding="async" onload="this.closest('.brand').classList.add('has-logo')">
+                  <img class="brand__sheen" src="assets/images/merken/seiko.svg" alt="" aria-hidden="true" style="--w: 8.6rem" decoding="async">
+                  <span class="brand__name" aria-hidden="true">Seiko</span>
+                </span>
+              </li>
+              <li class="brand">
+                <span class="brand__mark">
+                  <img class="brand__logo" src="assets/images/merken/danish-design.png" alt="Danish Design" style="--w: 7.4rem" decoding="async" onload="this.closest('.brand').classList.add('has-logo')">
+                  <img class="brand__sheen" src="assets/images/merken/danish-design.png" alt="" aria-hidden="true" style="--w: 7.4rem" decoding="async">
+                  <span class="brand__name" aria-hidden="true">Danish Design</span>
+                </span>
+              </li>
+              <li class="brand">
+                <span class="brand__mark">
+                  <img class="brand__logo" src="assets/images/merken/jacob-jensen.svg" alt="Jacob Jensen" style="--w: 12rem" decoding="async" onload="this.closest('.brand').classList.add('has-logo')">
+                  <img class="brand__sheen" src="assets/images/merken/jacob-jensen.svg" alt="" aria-hidden="true" style="--w: 12rem" decoding="async">
+                  <span class="brand__name" aria-hidden="true">Jacob Jensen</span>
+                </span>
+              </li>
+              <li class="brand">
+                <span class="brand__mark">
+                  <img class="brand__logo" src="assets/images/merken/mondaine.png" alt="Mondaine" style="--w: 13rem" decoding="async" onload="this.closest('.brand').classList.add('has-logo')">
+                  <img class="brand__sheen" src="assets/images/merken/mondaine.png" alt="" aria-hidden="true" style="--w: 13rem" decoding="async">
+                  <span class="brand__name" aria-hidden="true">Mondaine</span>
+                </span>
+              </li>
+              <li class="brand">
+                <span class="brand__mark">
+                  <img class="brand__logo" src="assets/images/merken/lorus.svg" alt="Lorus" style="--w: 11rem" decoding="async" onload="this.closest('.brand').classList.add('has-logo')">
+                  <img class="brand__sheen" src="assets/images/merken/lorus.svg" alt="" aria-hidden="true" style="--w: 11rem" decoding="async">
+                  <span class="brand__name" aria-hidden="true">Lorus</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="brands__group" data-reveal>
+            <h3 class="brands__title">Sieraden</h3>
+            <ul class="brands__list brands__list--jewels">
+              <li class="brand">
+                <span class="brand__mark">
+                  <img class="brand__logo" src="assets/images/merken/yara.png" alt="Yara" style="--w: 10.8rem" decoding="async" onload="this.closest('.brand').classList.add('has-logo')">
+                  <img class="brand__sheen" src="assets/images/merken/yara.png" alt="" aria-hidden="true" style="--w: 10.8rem" decoding="async">
+                  <span class="brand__name" aria-hidden="true">Yara</span>
+                </span>
+                <p class="brand__note">9 karaat goud, lab grown diamant</p>
+              </li>
+              <li class="brand">
+                <span class="brand__mark">
+                  <img class="brand__logo" src="assets/images/merken/blush.svg" alt="Blush" style="--w: 8.6rem" decoding="async" onload="this.closest('.brand').classList.add('has-logo')">
+                  <img class="brand__sheen" src="assets/images/merken/blush.svg" alt="" aria-hidden="true" style="--w: 8.6rem" decoding="async">
+                  <span class="brand__name" aria-hidden="true">Blush</span>
+                </span>
+                <p class="brand__note">14 karaat, lab grown diamant en goud</p>
+              </li>
+              <li class="brand">
+                <span class="brand__mark">
+                  <img class="brand__logo" src="assets/images/merken/fjory.png" alt="Fjory" style="--w: 11.5rem" decoding="async" onload="this.closest('.brand').classList.add('has-logo')">
+                  <img class="brand__sheen" src="assets/images/merken/fjory.png" alt="" aria-hidden="true" style="--w: 11.5rem" decoding="async">
+                  <span class="brand__name" aria-hidden="true">Fjory</span>
+                </span>
+                <p class="brand__note">Nederlands fabrikaat</p>
+              </li>
+              <li class="brand">
+                <span class="brand__mark">
+                  <img class="brand__logo" src="assets/images/merken/nomination.svg" alt="Nomination" style="--w: 11rem" decoding="async" onload="this.closest('.brand').classList.add('has-logo')">
+                  <img class="brand__sheen" src="assets/images/merken/nomination.svg" alt="" aria-hidden="true" style="--w: 9rem" decoding="async">
+                  <span class="brand__name" aria-hidden="true">Nomination</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         4. ONS VERHAAL
+         ========================================================= -->
+    <section class="section section--dark story" id="verhaal" aria-labelledby="verhaal-title">
+      <div class="container story__grid">
+        <p class="story__year" aria-hidden="true" data-year-reveal>1926</p>
+
+        <figure class="story__photo" data-reveal>
+          <div class="photo">
+          <div class="slot" style="--ratio: 4 / 5">
+            <span class="slot__label">FOTO: de winkel van binnen</span>
+            <img class="story__img" src="assets/images/werkbank.jpg"
+                 alt="De toonbank van Top Time, met een Junghans-horloge in zijn doos en de wenteltrap erachter"
+                 width="1800" height="1200" loading="lazy" decoding="async"
+                 onerror="this.remove()">
+          </div>
+          </div>
+          <figcaption><span data-config="ownerName">Josja Houtermans</span></figcaption>
+        </figure>
+
+        <div class="story__text">
+          <p class="story__note" data-reveal>In 2026 bestaat de winkel 100 jaar.</p>
+          <h2 id="verhaal-title" data-reveal>Hier zit al een juwelier sinds 1926</h2>
+
+          <div data-reveal>
+            <p>
+              In 1926 begon de familie Bouwhuis hier een juwelier en horlogemaker.
+              De zaak ging over van vader op zoon.
+              In 1989 nam ik hem over, sindsdien heet hij Top Time.
+              Ik groeide op in het vak: mijn ouders hadden Firma Houtermans in de Lange Bisschopstraat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4b. REVIEWS
+         Strook die langzaam vanzelf doorschuift (pure CSS). De tweede rij is een kopie voor een naadloze lus
+         (aria-hidden). De pauzeknop komt uit main.js. Quotes staan letterlijk zoals de klanten ze schreven.
+         ========================================================= -->
+    <section class="section section--light section--mist reviews" id="reviews" aria-labelledby="reviews-title">
+      <div class="container">
+        <div class="reviews__head" data-reveal>
+          <h2 id="reviews-title">Wat klanten zeggen</h2>
+          <button class="reviews__pause" type="button" data-reviews-pause aria-pressed="false" hidden>Pauzeren</button>
+        </div>
+        <p class="reviews__score" data-reveal><span data-config="googleRating">4,4</span> sterren uit <span data-config="googleReviewCount">74</span> Google-reviews</p>
+      </div>
+
+      <div class="reviews__marquee" tabindex="0" role="region" aria-label="Reviews van klanten">
+        <div class="reviews__track">
+          <ul class="reviews__row">
+            <li class="review">
+              <blockquote class="review__quote"><p>Hele fijne winkel. Nieuw batterijtje in klokje waar je bij staat. Voor weinig ook. En daarna ook weer waterdicht. Eerlijk advies. Heeft tegenwoordig ook sieraden. Echt een aanrader</p></blockquote>
+              <p class="review__by">Robbert<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Fijne zaak, probleem met de sluiting van mijn horloge werd meteen ter plekke opgelost. Heel blij mee! Dankjewel!</p></blockquote>
+              <p class="review__by">Dorien<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Supergoed zaakje, decennia aan kennis en ervaring, in combi met ouderwetse perfecte service. Dat zie je niet veel meer!</p></blockquote>
+              <p class="review__by">Jack<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Een horloge maker die de tijd voor je heeft.</p></blockquote>
+              <p class="review__by">Aad<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Zeer vriendelijke verkoper, leuke winkel midden in Deventer. Kralen herenarmband was na aantal maanden stuk geknapt, kreeg gewoon een nieuwe! Zonder vragen of argwaan. Top service</p></blockquote>
+              <p class="review__by">Gerrie<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Zeer deskundig en vriendelijke eigenaar. Connaisseur, zonder opdringerig te worden. Aanrader</p></blockquote>
+              <p class="review__by">Constant<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Eigenaar is een horlogeliefhebber! Zeer schappelijk prijzen en toch enkele leuke merken voor elke beurs wat wils. Mijn eerste klokje gekocht bij zijn ouders welke een zaak aan de Lange B. hadden.</p></blockquote>
+              <p class="review__by">Xander<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Heel vriendelijk geholpen en echt een goed advies voor een dierbaar horloge gegeven. Je kunt hier zeker terecht voor goed werk! De prijs viel ook echt mee.</p></blockquote>
+              <p class="review__by">M.<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Super aardige man en we werden mega snel geholpen. En hij doet zijn werk altijd met veel passie en plezier!!</p></blockquote>
+              <p class="review__by">Maroussia<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Aardige vent! Zelfs als je niets koopt, geweldige service, zelfs bij een horloge dat ik 8 jaar geleden kocht! Klasse!</p></blockquote>
+              <p class="review__by">Bart<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Keurig, snel en vriendelijk geholpen. Batterij van horloge snel vervangen voor een prima prijs.</p></blockquote>
+              <p class="review__by">Colette<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Een hele kundige en fijne juwelier waar ik al jaren klant ben.</p></blockquote>
+              <p class="review__by">Marieke<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Mooie winkel en aangenaam personeel. Prima geadviseerd en geholpen bij de aanschaf van een nieuw horloge bandje</p></blockquote>
+              <p class="review__by">G.J.<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Perfect, altijd goed geholpen met erg deskundig advies!</p></blockquote>
+              <p class="review__by">Sander<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Hele vriendelijke man, rustig en nette winkel en zeer mooie horloges verkopen ze.</p></blockquote>
+              <p class="review__by">Gezinus<span>via Google</span></p>
+            </li>
+          </ul>
+          <ul class="reviews__row" aria-hidden="true">
+            <li class="review">
+              <blockquote class="review__quote"><p>Hele fijne winkel. Nieuw batterijtje in klokje waar je bij staat. Voor weinig ook. En daarna ook weer waterdicht. Eerlijk advies. Heeft tegenwoordig ook sieraden. Echt een aanrader</p></blockquote>
+              <p class="review__by">Robbert<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Fijne zaak, probleem met de sluiting van mijn horloge werd meteen ter plekke opgelost. Heel blij mee! Dankjewel!</p></blockquote>
+              <p class="review__by">Dorien<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Supergoed zaakje, decennia aan kennis en ervaring, in combi met ouderwetse perfecte service. Dat zie je niet veel meer!</p></blockquote>
+              <p class="review__by">Jack<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Een horloge maker die de tijd voor je heeft.</p></blockquote>
+              <p class="review__by">Aad<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Zeer vriendelijke verkoper, leuke winkel midden in Deventer. Kralen herenarmband was na aantal maanden stuk geknapt, kreeg gewoon een nieuwe! Zonder vragen of argwaan. Top service</p></blockquote>
+              <p class="review__by">Gerrie<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Zeer deskundig en vriendelijke eigenaar. Connaisseur, zonder opdringerig te worden. Aanrader</p></blockquote>
+              <p class="review__by">Constant<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Eigenaar is een horlogeliefhebber! Zeer schappelijk prijzen en toch enkele leuke merken voor elke beurs wat wils. Mijn eerste klokje gekocht bij zijn ouders welke een zaak aan de Lange B. hadden.</p></blockquote>
+              <p class="review__by">Xander<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Heel vriendelijk geholpen en echt een goed advies voor een dierbaar horloge gegeven. Je kunt hier zeker terecht voor goed werk! De prijs viel ook echt mee.</p></blockquote>
+              <p class="review__by">M.<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Super aardige man en we werden mega snel geholpen. En hij doet zijn werk altijd met veel passie en plezier!!</p></blockquote>
+              <p class="review__by">Maroussia<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Aardige vent! Zelfs als je niets koopt, geweldige service, zelfs bij een horloge dat ik 8 jaar geleden kocht! Klasse!</p></blockquote>
+              <p class="review__by">Bart<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Keurig, snel en vriendelijk geholpen. Batterij van horloge snel vervangen voor een prima prijs.</p></blockquote>
+              <p class="review__by">Colette<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Een hele kundige en fijne juwelier waar ik al jaren klant ben.</p></blockquote>
+              <p class="review__by">Marieke<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Mooie winkel en aangenaam personeel. Prima geadviseerd en geholpen bij de aanschaf van een nieuw horloge bandje</p></blockquote>
+              <p class="review__by">G.J.<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Perfect, altijd goed geholpen met erg deskundig advies!</p></blockquote>
+              <p class="review__by">Sander<span>via Google</span></p>
+            </li>
+            <li class="review">
+              <blockquote class="review__quote"><p>Hele vriendelijke man, rustig en nette winkel en zeer mooie horloges verkopen ze.</p></blockquote>
+              <p class="review__by">Gezinus<span>via Google</span></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container">
+        <p class="reviews__more">
+          <!-- TODO: controleer dat deze Google Maps-link naar de reviews van Top Time (Spijkerboorsteeg 10, Deventer) gaat; hij gebruikt de place-id van de winkel (TOPTIME.googleReviewsUrl in main.js). -->
+          <a class="link" href="https://www.google.com/maps/place/?q=place_id:ChIJvbNIimfqx0cRuLQy41AwDXs" data-reviews-link target="_blank" rel="noopener">Alle reviews op Google<span class="sr-only"> (opent in een nieuw tabblad)</span></a>
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. BEZOEK ONS
+         ========================================================= -->
+    <section class="section section--light visit" id="bezoek" aria-labelledby="bezoek-title">
+      <div class="container visit__grid">
+        <div class="visit__info">
+          <h2 id="bezoek-title" data-reveal>Loop gerust eens binnen</h2>
+          <p class="visit__intro" data-reveal>
+            U vindt ons in Deventer. Heeft u een vraag over een reparatie? Bel ons gerust even.
+          </p>
+
+          <dl class="contact" data-reveal>
+            <div>
+              <dt>Adres</dt>
+              <dd>
+                <span data-config="street">Spijkerboorsteeg 10</span><br>
+                <span data-config="postalCode">7411 JG</span> <span data-config="city">Deventer</span>
+              </dd>
+            </div>
+            <div>
+              <dt>Telefoon</dt>
+              <dd><a class="link" href="tel:+31570612117" data-tel data-config="phone">(0570) 61 21 17</a></dd>
+            </div>
+            <div>
+              <dt>E-mail</dt>
+              <dd><a class="link" href="mailto:Info@toptimejuwelier.nl" data-mail data-config="email">Info@toptimejuwelier.nl</a></dd>
+            </div>
+          </dl>
+
+          <h3 class="visit__subhead" data-reveal>Openingstijden</h3>
+          <table class="hours" data-reveal>
+            <caption class="sr-only">Openingstijden van Top Time</caption>
+            <tbody data-hours>
+              <!-- Staat hier al ingevuld; main.js werkt de tabel bij vanuit de openingstijden bovenin main.js. -->
+              <tr><th scope="row">Maandag</th><td>Gesloten</td></tr>
+              <tr><th scope="row">Dinsdag</th><td>10:00 – 17:30</td></tr>
+              <tr><th scope="row">Woensdag</th><td>10:00 – 17:30</td></tr>
+              <tr><th scope="row">Donderdag</th><td>10:00 – 17:30</td></tr>
+              <tr><th scope="row">Vrijdag</th><td>10:00 – 17:30</td></tr>
+              <tr><th scope="row">Zaterdag</th><td>10:00 – 17:00</td></tr>
+              <tr><th scope="row">Zondag</th><td>Gesloten</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="visit__map" data-reveal>
+          <figure class="visit__photo photo">
+            <div class="slot">
+              <span class="slot__label">FOTO: de vitrines met sieraden en horloges</span>
+              <img src="assets/images/winkel-interieur-vitrines.webp"
+                   alt="Rechte vitrines met sieraden en horloges in de winkel"
+                   width="1400" height="1050" loading="lazy" decoding="async" onerror="this.remove()">
+            </div>
+          </figure>
+
+          <!-- De kaart van Google wordt pas geladen na een klik op "Kaart laden" (privacy, zie js/main.js). -->
+          <div class="map" data-map>
+            <div class="map__placeholder">
+              <p class="map__address">Spijkerboorsteeg 10<br>7411 JG Deventer</p>
+              <div class="map__consent" data-map-consent hidden>
+                <button class="btn btn--ink" type="button" data-map-load>Kaart laden</button>
+                <p class="map__note">De kaart wordt geladen via Google. Google kan daarbij cookies plaatsen.</p>
+              </div>
+            </div>
+          </div>
+          <p class="visit__maplink">
+            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Top%20Time%2C%20Spijkerboorsteeg%2010%2C%207411%20JG%20Deventer" data-route target="_blank" rel="noopener">Open in Google Maps en plan uw route</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- =========================================================
+       6. FOOTER
+       ========================================================= -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__name">Top Time</p>
+      <p>
+        <span data-config="street">Spijkerboorsteeg 10</span>, <span data-config="city">Deventer</span>
+        &middot; <a class="link" href="tel:+31570612117" data-tel data-config="phone">(0570) 61 21 17</a>
+      </p>
+      <p>&copy; <span data-year>2026</span> Top Time &middot; KvK 38009063 &middot; <a class="link" href="privacy.html">Privacy</a></p>
+    </div>
+  </footer>
+
+
+  <!-- Mobiele actiebalk (alleen op kleine schermen) -->
+  <nav class="mobile-bar" aria-label="Snel contact">
+    <a class="btn btn--silver" href="tel:+31570612117" data-tel>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z" fill="currentColor"/></svg>
+      Bellen
+    </a>
+    <a class="btn btn--ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Top%20Time%2C%20Spijkerboorsteeg%2010%2C%207411%20JG%20Deventer" data-route target="_blank" rel="noopener">Route</a>
+  </nav>
+</body>
+</html>

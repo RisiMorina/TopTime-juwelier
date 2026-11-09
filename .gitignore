@@ -1,0 +1,6 @@
+.claude/
+.playwright-cli/
+**/.playwright-cli/
+*.exe
+*.md.bak
+fotos/
